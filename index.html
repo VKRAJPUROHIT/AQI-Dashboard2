@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Project_2</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+  
+</head>
+<body>
+
+    <section class="top-banner">
+        <div class="container">
+          <h1 class="heading">Air Quality App</h1>
+          <form>
+            <input type="text" placeholder="Search for a city" autofocus id="city">
+            <button type="button" id="searchBtn">SUBMIT</button>
+            <span class="msg"></span>
+          </form>
+        </div>
+      </section>
+      <section class="ajax-section mt-5">
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-12 text-right">
+                <h2 id="cityName"></h2>
+                <p id="dateTime"></p>
+                <div id="latLog">
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 hideRow">
+                    <!-- <h3>Major Pollutants</h3> -->
+                    <div id="mp"></div>
+                </div>
+                <div class="col-12 col-md-6 hideRow">
+                    <h3><!---AQI Index - ---><span id="aqiIndex"></span></h3>
+                    <div class="row">
+                        <div class="col-4 boxHide goodBox">
+                            <div class="box" id="goodBox">
+                                <!---0 - 50 <br> GOOD--->
+                            </div>
+                        </div>
+                        <div class="col-4 boxHide moderateBox">
+                            <div class="box" id="moderateBox">
+                                <!---51 - 100 <br> MODERATE--->
+                            </div>
+                        </div>
+                        <div class="col-4 boxHide unhealthBox">
+                            <div class="box" id="unhealthBox">
+                                <!---101 - 150 <br> Unhealthy for Sensitive Groups--->
+                            </div>
+                        </div>
+                        <div class="col-4 boxHide unhealth2Box">
+                            <div class="box" id="unhealth2Box">
+                                <!---151 - 200 <br> Unhealthy--->
+                            </div>
+                        </div>
+                        <div class="col-4 boxHide veryUnhealthBox">
+                            <div class="box" id="veryUnhealthBox">
+                                <!---201 - 300 <br> Very Unhealthy--->
+                            </div>
+                        </div>
+                        <div class="col-4 boxHide hazardousBox">
+                            <div class="box" id="hazardousBox">
+                                <!---300+ <br> Hazardous--->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6"></div>
+                <div class="col-12 col-md-6 pl-5 pt-2">
+                    <h4 class="ml-2" id="status"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+          
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <div class="container">
+            <!-- <div class="row"> -->
+                <!-- <div class="col-12 col-md-6 text-left" id="dateTime"></div> -->
+                <!-- <div class="col-12 col-md-6">  -->
+                    <!-- <small>Made by <a href="#" target="_blank"></a>
+                </small> -->
+            <!-- </div> -->
+            <!-- </div> -->
+        </div>
+      </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>   
+    <script src="app.js"></script> 
+</body>
+</html>
