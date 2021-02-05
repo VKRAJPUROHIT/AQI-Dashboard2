@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Project_2</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+
+    <section class="top-banner">
+        <div class="container">
+          <h1 class="heading">Air Quality App</h1>
+          <form>
+            <input type="text" placeholder="Search for a city" autofocus id="city">
+            <button type="button" id="searchBtn">SUBMIT</button>
+            <span class="msg"></span>
+          </form>
+        </div>
+      </section>
+      <section class="ajax-section mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                <h2 id="cityName"></h2>
+                <p id="dateTime"></p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+          <h3>Major Pollutants</h3>
+          <div id="mp"></div>
+        </div>
+        <div class="container">
+          <h3>AQI Index - <span id="aqiIndex"></span></h3>
+          <div class="row">
+              <div class="col-2 boxHide goodBox">
+                  <div class="box" id="goodBox">
+                      0 - 50 <br> GOOD
+                  </div>
+              </div>
+              <div class="col-2 boxHide moderateBox">
+                  <div class="box" id="moderateBox">
+                      51 - 100 <br> MODERATE
+                  </div>
+              </div>
+              <div class="col-2 boxHide unhealthBox">
+                  <div class="box" id="unhealthBox">
+                      101 - 150 <br> Unhealthy for Sensitive Groups
+                  </div>
+              </div>
+              <div class="col-2 boxHide unhealth2Box">
+                  <div class="box" id="unhealth2Box">
+                      151 - 200 <br> Unhealthy
+                  </div>
+              </div>
+              <div class="col-2 boxHide veryUnhealthBox">
+                  <div class="box" id="veryUnhealthBox">
+                      201 - 300 <br> Very Unhealthy
+                  </div>
+              </div>
+              <div class="col-2 boxHide hazardousBox">
+                  <div class="box" id="hazardousBox">
+                      300+ <br> Hazardous
+                  </div>
+              </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <div class="container">
+            <!-- <div class="row"> -->
+                <!-- <div class="col-12 col-md-6 text-left" id="dateTime"></div> -->
+                <!-- <div class="col-12 col-md-6">  -->
+                    <small>Made by <a href="#" target="_blank"></a>
+                </small>
+            <!-- </div> -->
+            <!-- </div> -->
+        </div>
+      </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>   
+    <script src="app.js"></script> 
+    <script>
+    $(".boxHide").hide();
+    $(".boxHide").css("display","");
+    function searchWeather(city)
+    {
+        $.getJSON("//api.waqi.info/feed/"+city+"/?token=3b8933facee479ca77345764f2d45b078f9fc2cb",
+        function (result) {
+            $("#cityName").html(city);
+            var obj=result["data"]["iaqi"];
+            var output="<ul>";
+            for(x in obj)
+            {
+                output+="<li>"+x+" - "+obj[x]["v"]+"</li>";
+            }
+            output+="</ul>";
+            $("#mp").html(output);
+            $("#aqiIndex").html(result["data"]["aqi"]);
+            var aqi=parseInt(result["data"]["aqi"]);
+            $(".boxHide").hide();
+
+            if(aqi>=0 && aqi<=50)
+            {
+                $(".goodBox").show();
+            }
+            else if(aqi>=51 && aqi<=100)
+            {
+                $(".moderateBox").show();
+            }
+            else if(aqi>=101 && aqi<=150)
+            {
+                $(".unhealthBox").show();
+            }
+            else if(aqi>=151 && aqi<=200)
+            {
+                $(".unhealth2Box").show();
+            }
+            else if(aqi>=201 && aqi<=300)
+            {
+                $(".veryUnhealthBox").show();
+            }
+            else if(aqi>=301)
+            {
+                $(".hazardousBox").show();
+            }
+        });
+        var d=new Date();
+        var ldate=d.toLocaleString('en-US');
+        var dateS=ldate.split(",")[0];
+        var time=ldate.split(",")[1];
+        var dateSArr=dateS.split("/");
+        var disDate = new Date(dateS);
+        disDate=disDate.toString().substring(0,15).replace(new Date().getFullYear().toString(), "");
+        $("#dateTime").html(disDate + time);
+    }
+    $("#searchBtn").click(function(){
+        var srcVal=$("#city").val();
+        searchWeather(srcVal);
+    });
+    $("#city").on("keydown",function(e){
+        if(e.keyCode==13)
+        {
+            e.preventDefault();
+            $("#searchBtn").click();
+        }
+    });
+    </script>
+</body>
+</html>
