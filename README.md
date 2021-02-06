@@ -1,6 +1,6 @@
 # AQI-Dashboard2
 
-This is a Simple Javascript web application to find Air Quality near your location or any other city around the world. The App uses Breezometer Api to get data.
+This is a Simple Javascript web application to find Air Quality near your location or any other city in California. The App uses Breezometer Api to get data.
 
 What is AQI ?
 The air quality index (AQI) is an index for reporting air quality.The purpose of the AQI is to help people know how the local air quality impacts their health.
